@@ -1,4 +1,4 @@
-# mohib.me &middot; [![GitHub license](https://img.shields.io/github/license/bdTechies/book-manager.svg?style=popout)](https://github.com/bdTechies/book-manager/blob/master/LICENSE.md)
+# mohib.me &middot; [![GitHub license](https://img.shields.io/github/license/mbmohib/mohib.me.svg?style=popout)](https://github.com/mbmohib/mohib.me/blob/main/LICENSE)
 
 ### Personal portfolio website built with GatsbyJS & TypeScript
 
@@ -19,8 +19,6 @@ $ npm install
 ```
 
 3.  Finally run the app:
-
-- For Linux and Mac users:
 
 ```bash
 $ npm start
