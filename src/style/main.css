@@ -1,0 +1,8 @@
+@tailwind base;
+
+body {
+  @apply bg-primary;
+}
+
+@tailwind components;
+@tailwind utilities;
