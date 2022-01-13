@@ -1,4 +1,4 @@
-# mohib.me &middot; [![GitHub license](https://img.shields.io/github/license/mbmohib/mohib.me.svg?style=popout)](https://github.com/mbmohib/mohib.me/blob/main/LICENSE)
+# mohib.me &middot; [![GitHub license](https://img.shields.io/github/license/mbmohib/mohib.me.svg?style=popout)](https://github.com/mbmohib/mohib.me/blob/main/LICENSE)[![Netlify Status](https://api.netlify.com/api/v1/badges/d54df1fd-0823-47cb-a537-da76f5490a52/deploy-status)](https://app.netlify.com/sites/mohib-personal-site/deploys)
 
 ### Personal portfolio website built with GatsbyJS & TypeScript
 
