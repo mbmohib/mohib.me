@@ -1,7 +1,7 @@
 @tailwind base;
 
 body {
-  @apply text-white bg-tertiary;
+  @apply text-white font-content;
 }
 
 @tailwind components;

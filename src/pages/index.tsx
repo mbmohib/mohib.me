@@ -1,32 +1,46 @@
-// If you don't want to use TypeScript you can delete this file!
-import React from 'react';
-import { PageProps, Link, graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 
-import Layout from '../components/layout';
+import { Layout, Blog } from '../components';
 import SEO from '../components/seo';
-import developerImg from '../assets/images/development.jpg';
+import heroImage from '../assets/images/hero-image.svg';
 
-type DataProps = {
-  site: {
-    buildTime: string;
-  };
-};
+export default function Index() {
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <div className="container">
+        {/* Hero section */}
+        <div className="grid grid-cols-2 mt-4">
+          <div className="flex flex-col justify-center">
+            <h1 className="text-4xl font-title">
+              A JavaScript Developer, Writing code for fun!
+            </h1>
+            <div className="mt-3">
+              <Link to="" className="mr-2 btn btn-primary">
+                {' '}
+                Read my Blog
+              </Link>
+              <Link to="" className="mr-2 btn btn-secondary">
+                {' '}
+                See my Projects
+              </Link>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <img className="w-3/4" src={heroImage} alt="" />
+          </div>
+        </div>
 
-const UsingTypescript: React.FC<PageProps<DataProps>> = ({ data, path }) => (
-  <Layout>
-    <SEO title="Using TypeScript" />
-    <div className="container">
-      <div className="grid grid-cols-2">
-        <div className=""></div>
-        <div className="">
-          <img src={developerImg} alt="" />
+        <div className="my-10 rounded-md">
+          <div className="grid grid-cols-2 gap-4">
+            <Blog />
+            <Blog />
+          </div>
         </div>
       </div>
-    </div>
-  </Layout>
-);
-
-export default UsingTypescript;
+    </Layout>
+  );
+}
 
 export const query = graphql`
   {
