@@ -5,22 +5,26 @@ module.exports = {
   theme: {
     container: {
       center: true,
-    },
-    colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      white: '#FFFFFF',
-      primary: {
-        DEFAULT: '#4b96ff',
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
       },
-      gray: {
-        500: '#a9adc1',
-      },
-      tertiary: '#1f2028',
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      title: ['Oxygen', 'sans-serif'],
+      content: ['Montserrat', 'sans-serif'],
+    },
+    fontSize: {
+      xs: '0.64rem',
+      sm: '0.8rem',
+      base: '1rem',
+      lg: '1.25rem',
+      xl: '1.563rem',
+      '2xl': '1.953rem',
+      '3xl': '2.441rem',
+      '4xl': '3.052rem',
     },
     spacing: {
       0: '0',
@@ -50,7 +54,8 @@ module.exports = {
       sm: '4px',
       DEFAULT: '8px',
       md: '16px',
-      lg: '0.5rem',
+      lg: '24px',
+      xl: '32px',
       full: '9999px',
       large: '12px',
     },
@@ -69,5 +74,21 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+  daisyui: {
+    styled: true,
+    themes: [
+      // {
+      //   dark: {
+      //     'base-100': '#1f2028',
+      //   },
+      // },
+      'dark',
+      'light',
+    ],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+  },
 };
