@@ -1,12 +1,9 @@
-import { IconTypes } from '../../types';
-import withIcon from './withIcon';
-
-function ExternalLinkIcon(props: IconTypes) {
+function ExternalLinkIcon(props: any) {
   return (
     <svg
       width={24}
       height={24}
-      fill="none"
+      fill="currentColor"
       stroke="currentColor"
       strokeWidth={2}
       strokeLinecap="round"
@@ -18,4 +15,4 @@ function ExternalLinkIcon(props: IconTypes) {
   );
 }
 
-export default withIcon(ExternalLinkIcon);
+export default ExternalLinkIcon;

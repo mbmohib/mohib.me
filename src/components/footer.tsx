@@ -4,10 +4,13 @@ export default function Footer() {
       <div className="flex justify-between">
         <div className="flex gap-x-1">
           <p>
-            Designed by <a href="">Nurshad Rahman</a>
-          </p>
-          <p>
-            Developed by <a href="">Mohib</a>
+            UI Designed by{' '}
+            <a
+              href="https://behance.net/nurshadrahman"
+              className="text-primary"
+            >
+              Nurshad Rahman
+            </a>
           </p>
         </div>
         <div>

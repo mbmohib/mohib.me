@@ -19,7 +19,7 @@ module.exports = {
     fontSize: {
       xs: '0.64rem',
       sm: '0.8rem',
-      base: '1rem',
+      base: '1.1rem',
       lg: '1.25rem',
       xl: '1.563rem',
       '2xl': '1.953rem',
@@ -79,12 +79,30 @@ module.exports = {
   daisyui: {
     styled: true,
     themes: [
-      // {
-      //   dark: {
-      //     'base-100': '#1f2028',
-      //   },
-      // },
-      'dark',
+      {
+        dark: {
+          primary: '#7f5af0',
+          'primary-focus': '#673bed',
+          'primary-content': '#fffffe',
+          secondary: '#72757e',
+          'secondary-focus': '#62646c',
+          'secondary-content': '#fffffe',
+          accent: '#2cb67d',
+          'accent-focus': '#259b6a',
+          'accent-content': '#fffffe',
+          neutral: '#010101',
+          'neutral-focus': '#000000',
+          'neutral-content': '#fffffe',
+          'base-100': '#16161a',
+          'base-200': '#242629',
+          // 'base-300': '#d1d5db',
+          'base-content': '#94a1b2',
+          info: '#2cb67d',
+          success: '#7f5af0',
+          warning: '#ff8906',
+          error: '#e53170',
+        },
+      },
       'light',
     ],
     base: true,

@@ -1,8 +1,28 @@
 @tailwind base;
 
 body {
-  @apply text-white font-content;
+  @apply font-content;
+  line-height: 1.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-primary-content;
+  line-height: 1.5;
 }
 
 @tailwind components;
+
+.btn {
+  @apply h-auto px-6 py-3 rounded-full;
+}
+
+.btn-sm {
+  @apply px-4 py-2;
+}
+
 @tailwind utilities;

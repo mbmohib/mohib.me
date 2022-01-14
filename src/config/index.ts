@@ -4,15 +4,15 @@ export const mainMenu = [
     path: '/',
   },
   {
-    label: 'Blogs',
-    path: '/blogs',
+    label: 'Blog',
+    path: '/blog/',
   },
   {
     label: 'Projects',
-    path: '/projects',
+    path: '/projects/',
   },
   {
     label: 'My Story',
-    path: '/about',
+    path: '/about/',
   },
 ];

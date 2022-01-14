@@ -1,12 +1,9 @@
-import { IconTypes } from '../../types';
-import withIcon from './withIcon';
-
-function GithubIcon(props: IconTypes) {
+function GithubIcon(props: any) {
   return (
     <svg
       width={24}
       height={24}
-      fill="none"
+      fill="currentColor"
       stroke="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       strokeWidth={2}
@@ -19,4 +16,4 @@ function GithubIcon(props: IconTypes) {
   );
 }
 
-export default withIcon(GithubIcon);
+export default GithubIcon;
