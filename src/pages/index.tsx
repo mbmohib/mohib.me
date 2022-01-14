@@ -50,7 +50,7 @@ export default function Index() {
 
       <section id="project" className="py-10 bg-base-200">
         <div className="container">
-          <h2 className="mb-3 text-2xl font-title">My Lab</h2>
+          <h2 className="mb-3 section-heading">My Lab</h2>
           <div className="grid grid-cols-3 gap-4">
             <Project />
             <Project />

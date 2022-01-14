@@ -24,5 +24,12 @@ h6 {
 .btn-sm {
   @apply px-4 py-2;
 }
+.btn-xs {
+  @apply px-2 py-1;
+}
+
+.section-heading {
+  @apply text-3xl font-title text-base-content;
+}
 
 @tailwind utilities;

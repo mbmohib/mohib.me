@@ -7,12 +7,30 @@ export const mainMenu = [
     label: 'Blog',
     path: '/blog/',
   },
+  // {
+  //   label: 'Projects',
+  //   path: '/projects/',
+  // },
+  // {
+  //   label: 'My Story',
+  //   path: '/about/',
+  // },
+];
+
+export const categories = [
   {
-    label: 'Projects',
-    path: '/projects/',
+    label: 'React',
   },
   {
-    label: 'My Story',
-    path: '/about/',
+    label: 'DevOps',
+  },
+  {
+    label: 'Gatsby',
+  },
+  {
+    label: 'Authentication',
+  },
+  {
+    label: 'UI/UX',
   },
 ];

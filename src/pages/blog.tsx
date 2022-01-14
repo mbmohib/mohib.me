@@ -2,56 +2,33 @@ import { Link, graphql } from 'gatsby';
 
 import { Layout, Blog } from '../components';
 import SEO from '../components/seo';
-import heroImage from '../assets/images/hero-image.svg';
+import { categories } from '../config';
 
 export default function BlogPage() {
   return (
     <Layout>
       <SEO title="Blogs" />
-      <div className="container">
-        <div className="my-10 rounded-md">
-          <div className="grid grid-cols-12 gap-4">
-            <main className="col-span-10">
-              <div className="grid grid-cols-2 gap-4">
-                <Blog />
-                <Blog />
-              </div>
-              <div className="grid grid-cols-3 gap-4 mt-10 gap-y-6">
-                <Blog />
-                <Blog />
-                <Blog />
-                <Blog />
-                <Blog />
-                <Blog />
-              </div>
-            </main>
-            <aside className="col-span-2">
-              <div>
-                <h2 className="mb-3 text-lg font-title">Top Categories</h2>
-                <Link className="px-2 py-1 mr-2 rounded-md bg-primary" to="/">
-                  React
-                </Link>
-                <Link className="px-2 py-1 rounded-md bg-primary" to="/">
-                  React
-                </Link>
-              </div>
-              <div className="mt-10">
-                <h2 className="mb-2 text-lg font-title">Popular Contents</h2>
-                <Link className="block mb-2 mr-2 text-primary" to="/">
-                  How to React
-                </Link>
-                <Link className="block mb-2 mr-2 text-primary" to="/">
-                  How to React
-                </Link>
-                <Link className="block mb-2 mr-2 text-primary" to="/">
-                  How to React
-                </Link>
-                <Link className="block mb-2 mr-2 text-primary" to="/">
-                  How to React
-                </Link>
-              </div>
-            </aside>
-          </div>
+      <div className="container mt-10">
+        <h2 className="mb-3 section-heading">Featured Article</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <Blog />
+          <Blog />
+        </div>
+        <div className="mt-10 mb-7">
+          <h2 className="mb-3 section-heading">Read blog by Categories</h2>
+          {categories.map(category => (
+            <Link className="mr-1 btn btn-outline btn-primary btn-xs" to="/">
+              {category.label}
+            </Link>
+          ))}
+        </div>
+        <div className="grid grid-cols-3 gap-x-6 gap-y-8">
+          <Blog variant="small" />
+          <Blog variant="small" />
+          <Blog variant="small" />
+          <Blog variant="small" />
+          <Blog variant="small" />
+          <Blog variant="small" />
         </div>
       </div>
     </Layout>

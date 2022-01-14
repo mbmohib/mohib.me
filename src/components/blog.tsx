@@ -1,14 +1,24 @@
-import { PageProps, Link, graphql } from 'gatsby';
+import { Link } from 'gatsby';
 import testImage from '../assets/images/test-image.jpg';
 
-export default function Blog() {
+interface BlogProps {
+  variant?: 'small' | 'medium';
+}
+
+export default function Blog({ variant = 'medium' }: BlogProps) {
   return (
     <div>
       <Link className="block" to="/">
         <img className="rounded-md" src={testImage} alt="article-heading" />
       </Link>
       <Link className="block" to="/">
-        <h1 className="mt-2 text-2xl font-title">
+        <h1
+          className={
+            variant === 'medium'
+              ? `mt-2 font-title text-2xl`
+              : `mt-2 font-title text-xl`
+          }
+        >
           How I built a modern website in 2021
         </h1>
       </Link>
