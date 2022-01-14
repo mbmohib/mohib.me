@@ -1,4 +1,6 @@
-function ExternalLinkIcon(props: any) {
+import { SVGProps } from 'react';
+
+function ExternalLinkIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width={24}

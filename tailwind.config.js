@@ -39,6 +39,10 @@ module.exports = {
       8: '64px',
       9: '72px',
       10: '100px',
+      11: '125px',
+      12: '150px',
+      13: '175px',
+      14: '200px',
     },
     borderWidth: {
       DEFAULT: '1px',

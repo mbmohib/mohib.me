@@ -1,4 +1,6 @@
-function GithubIcon(props: any) {
+import { SVGProps } from 'react';
+
+function GithubIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width={24}

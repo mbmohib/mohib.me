@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 
 export default function Header() {
   return (
-    <div className="container p-2">
+    <div className="container py-3">
       <div className="flex justify-between">
         <div className="flex items-center">
           <div className="mr-8">

@@ -1,8 +1,9 @@
 import { Link, graphql } from 'gatsby';
 
-import { Layout, Blog, Project } from '../components';
+import { Layout, Blog, Project, ProfileLink } from '../components';
 import SEO from '../components/seo';
 import heroImage from '../assets/images/hero-image.svg';
+import { profileLinks } from '../config';
 
 export default function Index() {
   return (
@@ -55,6 +56,46 @@ export default function Index() {
             <Project />
             <Project />
             <Project />
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="pt-10">
+        <div className="container">
+          <div className="grid grid-cols-12 gap-6">
+            <form className="col-span-7">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your Message</span>
+                </label>
+                <textarea
+                  className="h-12 rounded-lg textarea textarea-bordered focus:textarea-primary"
+                  placeholder="Write your message"
+                ></textarea>
+              </div>
+              <div className="mt-4 form-control">
+                <label className="label">
+                  <span className="label-text">Your Email</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="me@example.com"
+                  className="rounded-lg input input-bordered focus:input-primary"
+                />
+              </div>
+              <button
+                type="submit"
+                className="px-8 mt-4 btn btn-primary btn-sm"
+              >
+                Send
+              </button>
+            </form>
+
+            <div className="col-span-4 pl-4 mt-4">
+              {profileLinks.map(profile => (
+                <ProfileLink profile={profile} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
