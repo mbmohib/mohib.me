@@ -64,16 +64,7 @@ export default function Index() {
         <div className="container">
           <div className="grid grid-cols-12 gap-6">
             <form className="col-span-7">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Your Message</span>
-                </label>
-                <textarea
-                  className="h-12 rounded-lg textarea textarea-bordered focus:textarea-primary"
-                  placeholder="Write your message"
-                ></textarea>
-              </div>
-              <div className="mt-4 form-control">
+              <div className=" form-control">
                 <label className="label">
                   <span className="label-text">Your Email</span>
                 </label>
@@ -82,6 +73,15 @@ export default function Index() {
                   placeholder="me@example.com"
                   className="rounded-lg input input-bordered focus:input-primary"
                 />
+              </div>
+              <div className="form-control mt-4">
+                <label className="label">
+                  <span className="label-text">Your Message</span>
+                </label>
+                <textarea
+                  className="h-12 rounded-lg textarea textarea-bordered focus:textarea-primary"
+                  placeholder="Write your message"
+                ></textarea>
               </div>
               <button
                 type="submit"

@@ -7,7 +7,7 @@ export default function Header() {
       <div className="flex justify-between">
         <div className="flex items-center">
           <div className="mr-8">
-            <p>mohib</p>
+            <Link to="/">mohib</Link>
           </div>
           <nav>
             {mainMenu.map(menu => (

@@ -4,7 +4,7 @@ import gatsbyLogo from '../assets/images/gatsby-logo.png';
 
 export default function Project() {
   return (
-    <div className="p-4 rounded bg-base-100">
+    <div className="p-4 rounded-md bg-base-100">
       <div className="flex mb-4">
         <p className="px-2 mr-1 text-sm border rounded-lg border-secondary">
           react

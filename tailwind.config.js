@@ -85,7 +85,7 @@ module.exports = {
     themes: [
       {
         dark: {
-          primary: '#1F3A93',
+          primary: '#7f5af0',
           'primary-focus': '#673bed',
           'primary-content': '#fffffe',
           secondary: '#72757e',
