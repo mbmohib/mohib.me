@@ -9,7 +9,7 @@ export default function Header() {
           <div className="mr-8">
             <Link to="/">mohib</Link>
           </div>
-          <nav>
+          <nav className="hidden sm:block">
             {mainMenu.map(menu => (
               <Link className="p-1 mx-1" to={menu.path} key={menu.label}>
                 {menu.label}

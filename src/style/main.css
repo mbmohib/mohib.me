@@ -18,7 +18,7 @@ h6 {
 @tailwind components;
 
 .btn {
-  @apply h-auto px-6 py-3 rounded-full;
+  @apply h-auto px-5 sm:px-6 py-3 rounded-full;
 }
 
 .btn-sm {
@@ -29,7 +29,7 @@ h6 {
 }
 
 .section-heading {
-  @apply text-3xl font-title text-base-content;
+  @apply text-2xl sm:text-3xl font-title text-base-content;
 }
 
 @tailwind utilities;

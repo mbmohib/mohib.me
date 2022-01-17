@@ -1,8 +1,8 @@
 ---
-path: 'store-jwt-more-secure-way'
+path: 'get-logout-from-all-tab'
 date: '2022-01-16'
-title: 'Storing JWT a more secure way!'
-featuredImage: security.jpg
+title: 'Get logout from all tab!'
+featuredImage: sync.jpg
 isFeatured: true
 ---
 
@@ -17,24 +17,9 @@ Instead of configuring everything by ourselves manually, we'll use a plugin
 called [gatsby-plugin-disqus](https://github.com/tterb/gatsby-plugin-disqus).
 Now, install the plugin by running the following command:
 
-```bash
-$ npm install -S gatsby-plugin-disqus
-```
-
 ### Step 2: Configure plugin
 
 Add this code to your `gatsby-config.js` file's plugins section:
-
-```javascript
-plugins: [
-  {
-    resolve: `gatsby-plugin-disqus`, // highlight-line
-    options: {
-      shortname: `your-disqus-short-code`, // collect from your disqus dashboard
-    },
-  },
-];
-```
 
 ### Step 3: Use Disqus component in your blog-post template file
 

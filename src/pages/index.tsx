@@ -4,21 +4,28 @@ import { Layout, Blog, Project, ProfileLink } from '../components';
 import SEO from '../components/seo';
 import heroImage from '../assets/images/hero-image.svg';
 import { profileLinks } from '../config';
+import { Edge } from '../types';
 
-export default function Index() {
+interface IndexProps {
+  data: any;
+}
+
+export default function Index({ data }: IndexProps) {
+  const { edges } = data.allMarkdownRemark;
+
   return (
     <Layout>
       <SEO title="Home" />
 
       <section id="hero">
         <div className="container">
-          <div className="grid grid-cols-2 mt-4">
-            <div className="flex flex-col justify-center">
-              <h1 className="text-4xl font-title">
+          <div className="grid sm:grid-cols-2 mt-4">
+            <div className="flex order-2 sm:order-1 flex-col justify-center">
+              <h1 className="text-3xl sm:text-4xl font-title">
                 A JavaScript Developer, Writing code for fun!
               </h1>
               <div className="mt-3">
-                <Link to="/blog" className="mr-2 btn btn-primary">
+                <Link to="/blog" className="mr-2 mb-2 sm:mb-0 btn btn-primary">
                   {' '}
                   Read my Blog
                 </Link>
@@ -28,7 +35,7 @@ export default function Index() {
                 </Link>
               </div>
             </div>
-            <div className="flex justify-end">
+            <div className="flex order-1 sm:order-2 justify-center sm:justify-end">
               <img className="w-3/4" src={heroImage} alt="" />
             </div>
           </div>
@@ -37,9 +44,10 @@ export default function Index() {
 
       <section id="blog" className="my-10 rounded-md">
         <div className="container">
-          <div className="grid grid-cols-2 gap-4">
-            <Blog />
-            <Blog />
+          <div className="grid sm:grid-cols-2 gap-4">
+            {edges.map((edge: Edge) => (
+              <Blog key={edge.node.id} post={edge.node} />
+            ))}
           </div>
           <div className="mt-8 text-center">
             <Link to="/blog" className="btn btn-primary">
@@ -49,10 +57,10 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="project" className="py-10 bg-base-200">
+      <section id="project" className="py-8 sm:py-10 bg-base-200">
         <div className="container">
           <h2 className="mb-3 section-heading">My Lab</h2>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-3 gap-4">
             <Project />
             <Project />
             <Project />
@@ -62,8 +70,8 @@ export default function Index() {
 
       <section id="contact" className="pt-10">
         <div className="container">
-          <div className="grid grid-cols-12 gap-6">
-            <form className="col-span-7">
+          <div className="grid sm:grid-cols-12 gap-6">
+            <form className="sm:col-span-7">
               <div className=" form-control">
                 <label className="label">
                   <span className="label-text">Your Email</span>
@@ -91,7 +99,7 @@ export default function Index() {
               </button>
             </form>
 
-            <div className="col-span-4 pl-4 mt-4">
+            <div className="sm:col-span-4 pl-4 mt-4">
               {profileLinks.map(profile => (
                 <ProfileLink profile={profile} />
               ))}
@@ -103,10 +111,28 @@ export default function Index() {
   );
 }
 
-export const query = graphql`
-  {
-    site {
-      buildTime(formatString: "YYYY-MM-DD hh:mm a z")
+export const pageQuery = graphql`
+  query IndexQuery {
+    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+      edges {
+        node {
+          excerpt(pruneLength: 250)
+          id
+          frontmatter {
+            title
+            date(formatString: "MMMM DD, YYYY")
+            path
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 600, quality: 90) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+          timeToRead
+        }
+      }
     }
   }
 `;

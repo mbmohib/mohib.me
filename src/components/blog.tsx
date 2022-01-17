@@ -1,17 +1,25 @@
 import { Link } from 'gatsby';
-import testImage from '../assets/images/test-image.jpg';
+import Image from 'gatsby-image';
+import { Post } from '../types';
 
 interface BlogProps {
   variant?: 'small' | 'medium';
+  post: Post;
 }
 
-export default function Blog({ variant = 'medium' }: BlogProps) {
+export default function Blog({ variant = 'medium', post }: BlogProps) {
+  const featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid;
+
   return (
     <div>
-      <Link className="block" to="/">
-        <img className="rounded-md" src={testImage} alt="article-heading" />
+      <Link className="block" to={`/blog/${post.frontmatter.path}`}>
+        <Image
+          className="rounded-md h-[300px] lg:h-[400px]"
+          fluid={featuredImgFluid}
+          alt={post.frontmatter.title}
+        />
       </Link>
-      <Link className="block" to="/">
+      <Link className="block" to={`/blog/${post.frontmatter.path}`}>
         <h1
           className={
             variant === 'medium'
@@ -19,11 +27,13 @@ export default function Blog({ variant = 'medium' }: BlogProps) {
               : `mt-2 font-title text-xl`
           }
         >
-          How I built a modern website in 2021
+          {post.frontmatter.title}
         </h1>
       </Link>
 
-      <p className="mt-1 text">September 29th, 2021 — 34 min read</p>
+      <p className="mt-1 text">
+        {post.frontmatter.date} — {post.timeToRead} min read
+      </p>
     </div>
   );
 }
