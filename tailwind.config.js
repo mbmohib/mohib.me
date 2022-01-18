@@ -89,8 +89,8 @@ module.exports = {
     themes: [
       {
         dark: {
-          primary: '#7f5af0',
-          'primary-focus': '#673bed',
+          primary: '#57AA6F',
+          'primary-focus': '#4b9460',
           'primary-content': '#fffffe',
           secondary: '#72757e',
           'secondary-focus': '#62646c',
@@ -101,8 +101,10 @@ module.exports = {
           neutral: '#010101',
           'neutral-focus': '#000000',
           'neutral-content': '#fffffe',
-          'base-100': '#16161a',
-          'base-200': '#242629',
+          'base-100': '#152331',
+          // 'base-100': '#16161a',
+          // 'base-200': '#242629',
+          'base-200': '#1C2B3A',
           // 'base-300': '#d1d5db',
           'base-content': '#94a1b2',
           info: '#2cb67d',
