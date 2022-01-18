@@ -2,8 +2,8 @@ export default function Footer() {
   return (
     <div className="bg-base-200">
       <div className="container py-2 mt-10">
-        <div className="flex justify-between">
-          <div className="flex gap-x-1">
+        <div className="flex justify-between flex-col md:flex-row">
+          <div className="flex gap-x-1 mb-1 md:md-0">
             <p>
               UI Designed by{' '}
               <a

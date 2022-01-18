@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import Image from 'gatsby-image';
 import { Post } from '../types';
-
+import { CalenderIcon, ClockIcon } from '../assets/icons';
 interface BlogProps {
   variant?: 'small' | 'medium';
   post: Post;
@@ -31,9 +31,16 @@ export default function Blog({ variant = 'medium', post }: BlogProps) {
         </h1>
       </Link>
 
-      <p className="mt-1 text">
-        {post.frontmatter.date} — {post.timeToRead} min read
-      </p>
+      <div className="mt-2 flex">
+        <div className="flex">
+          <CalenderIcon className="fill-base-100 mr-1" />
+          {post.frontmatter.date}
+        </div>
+        <div className="ml-2 flex">
+          <ClockIcon className="fill-base-100 mr-1" />
+          {post.timeToRead} min read
+        </div>
+      </div>
     </div>
   );
 }

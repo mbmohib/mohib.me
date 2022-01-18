@@ -1,23 +1,31 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { Layout } from '../components';
+import { Layout, SEO } from '../components';
+import { CalenderIcon, ClockIcon } from '../assets/icons';
 
-export default function Template({ data }) {
+export default function BlogTemplate({ data }) {
   const { markdownRemark: post } = data;
   const featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid;
 
   return (
     <Layout>
+      <SEO title={post.frontmatter.title} />
       <div className="container mt-10">
         <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-9">
             <h1 className="text-3xl mb-2 font-semibold">
               {post.frontmatter.title}
             </h1>
-            <div className="mb-4 flex justify-between">
-              <p>{post.frontmatter.date}</p>
-              <p className="text-right">{post.timeToRead} min read</p>
+            <div className="mb-4 flex">
+              <div className="flex">
+                <CalenderIcon className="fill-base-100 mr-1" />
+                {post.frontmatter.date}
+              </div>
+              <div className="ml-2 flex">
+                <ClockIcon className="fill-base-100 mr-1" />
+                {post.timeToRead} min read
+              </div>
             </div>
           </div>
         </div>
@@ -28,8 +36,7 @@ export default function Template({ data }) {
               <Image className="rounded-md" fluid={featuredImgFluid} />
             </div>
             <article
-              style={{ maxWidth: `calc(100vw - 32px)` }}
-              className="prose lg:prose-lg mt-8 mx-auto"
+              className="article prose lg:prose-lg mt-8 mx-auto"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>

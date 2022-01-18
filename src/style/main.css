@@ -33,3 +33,12 @@ h6 {
 }
 
 @tailwind utilities;
+
+.article {
+  max-width: calc(100vw - 32px);
+}
+@screen lg {
+  .article {
+    max-width: 65ch;
+  }
+}

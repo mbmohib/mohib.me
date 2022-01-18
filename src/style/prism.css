@@ -11,6 +11,9 @@
 pre[class*='language-'] {
   background-color: hsl(var(--b2));
 }
+.prose :where(code):not(:where([class~='not-prose'] *)) {
+  background-color: hsl(var(--b2));
+}
 pre[class*='language-'] {
   margin: 0.5em 0;
   overflow: auto;
