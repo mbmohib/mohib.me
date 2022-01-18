@@ -122,6 +122,7 @@ export const pageQuery = graphql`
             title
             date(formatString: "MMMM DD, YYYY")
             path
+            topics
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 600, quality: 90) {

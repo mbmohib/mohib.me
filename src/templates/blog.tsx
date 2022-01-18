@@ -17,14 +17,23 @@ export default function BlogTemplate({ data }) {
             <h1 className="text-3xl mb-2 font-semibold">
               {post.frontmatter.title}
             </h1>
-            <div className="mb-4 flex">
+            <div className="mb-4 flex justify-between">
               <div className="flex">
-                <CalenderIcon className="fill-base-100 mr-1" />
-                {post.frontmatter.date}
+                <div className="flex">
+                  <CalenderIcon className="fill-base-100 mr-1" />
+                  {post.frontmatter.date}
+                </div>
+                <div className="ml-2 flex">
+                  <ClockIcon className="fill-base-100 mr-1" />
+                  {post.timeToRead} min read
+                </div>
               </div>
-              <div className="ml-2 flex">
-                <ClockIcon className="fill-base-100 mr-1" />
-                {post.timeToRead} min read
+              <div className="flex">
+                {post.frontmatter.topics.map(topic => (
+                  <p className="ml-1 text-primary" key={topic}>
+                    #{topic}
+                  </p>
+                ))}
               </div>
             </div>
           </div>
@@ -61,6 +70,7 @@ export const pageQuery = graphql`
         date(formatString: "DD MMMM, YYYY")
         path
         title
+        topics
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 1200, quality: 100) {

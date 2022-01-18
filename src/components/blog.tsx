@@ -12,19 +12,19 @@ export default function Blog({ variant = 'medium', post }: BlogProps) {
 
   return (
     <div>
-      <Link className="block" to={`/blog/${post.frontmatter.path}`}>
+      <Link className="block" to={`/blog/${post.frontmatter.path}/`}>
         <Image
           className="rounded-md h-[300px] lg:h-[400px]"
           fluid={featuredImgFluid}
           alt={post.frontmatter.title}
         />
       </Link>
-      <Link className="block" to={`/blog/${post.frontmatter.path}`}>
+      <Link className="block" to={`/blog/${post.frontmatter.path}/`}>
         <h1
           className={
             variant === 'medium'
-              ? `mt-2 font-title text-2xl`
-              : `mt-2 font-title text-xl`
+              ? `text-2xl mt-2 font-title`
+              : `text-xl mt-2 font-title`
           }
         >
           {post.frontmatter.title}

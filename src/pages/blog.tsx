@@ -23,7 +23,7 @@ export default function BlogPage({ data }: BlogPageProps) {
           ))}
         </div>
         <div className="mt-10 mb-7">
-          <h2 className="mb-3 section-heading">Read blog by Categories</h2>
+          <h2 className="mb-3 section-heading">Read blog by topic</h2>
           {categories.map(category => (
             <Link
               key={category.label}
@@ -55,6 +55,7 @@ export const pageQuery = graphql`
             title
             date(formatString: "MMMM DD, YYYY")
             path
+            topics
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {

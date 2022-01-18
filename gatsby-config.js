@@ -10,7 +10,13 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/src/blog`,
+        path: `${__dirname}/contents`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/contents/images`,
       },
     },
     {
@@ -115,7 +121,7 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         printRejected: false,
-        develop: true,
+        develop: false,
         tailwind: true,
         ignore: ['prismjs/', '/src/style/prism.css'],
       },

@@ -1,28 +1,29 @@
 ---
 path: 'improve-ux-by-logging-out-from-other-tabs'
 date: '2022-01-18'
+updatedAt: '2022-01-18'
 title: 'Improve UX by logging out from other tabs'
-featuredImage: sync.jpg
+featuredImage: ../images/sync.jpg
 isFeatured: true
-topic: UX, React
+topics: ['UX', 'React']
 ---
 
-We love single page application, It offers a much better user experience (UX).
-It also bring some new challenges like when user open multiple tab and logout
-from one tab, other tab should also be logged out. But often we see other tabs
-seems authenticated and user try to interact with, sometimes write/change
-content. Then when they do any api related action like save or publish the api
-return `401` and it all leads to a bad user experience.
+We love the single-page application, It offers a much better user experience
+(UX). It also brings some new challenges like when the user opens multiple tabs
+and log out from one tab, then another tab should also be logged out. But often
+we see other tabs that seem logged in and the user tries to interact with it.
+Then when they do any API-related action like save or publish, then the API
+return `401` and logged them out. It all leads to a bad user experience.
 
 We can solve this problem using `storage` event.
 
 ** This tutorial is written on `React` but the knowledge can be implemented in
-other app too. **
+other framework too. **
 
 ## Set data to `localStorage` when user logout
 
 First we need to push some data to `localStorage` every time user perform
-logout. The key can be anything, just the value needs to be updated.
+logout. The key can be anything, and the value needs to be updated.
 
 ```javascript
 window.localStorage.setItem('logout', Date.now().toString());
