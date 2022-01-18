@@ -11,13 +11,14 @@ export default function Template({ data }) {
     <Layout>
       <div className="container mt-10">
         <div className="grid sm:grid-cols-12 sm:gap-x-6">
-          <div className="sm:col-span-8">
+          <div className="sm:col-span-9">
             <h1 className="text-3xl mb-2 font-semibold">
               {post.frontmatter.title}
             </h1>
-            <p className="mb-4">
-              {post.frontmatter.date} — {post.timeToRead} min read
-            </p>
+            <div className="mb-4 flex justify-between">
+              <p>{post.frontmatter.date}</p>
+              <p className="text-right">{post.timeToRead} min read</p>
+            </div>
           </div>
         </div>
 
@@ -27,7 +28,7 @@ export default function Template({ data }) {
               <Image className="rounded-md" fluid={featuredImgFluid} />
             </div>
             <article
-              className="prose lg:prose-lg mt-8"
+              className="prose lg:prose-lg mt-8 mx-auto"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>
