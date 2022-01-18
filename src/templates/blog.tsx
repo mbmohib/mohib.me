@@ -28,6 +28,7 @@ export default function Template({ data }) {
               <Image className="rounded-md" fluid={featuredImgFluid} />
             </div>
             <article
+              style={{ maxWidth: `calc(100vw - 32px)` }}
               className="prose lg:prose-lg mt-8 mx-auto"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />

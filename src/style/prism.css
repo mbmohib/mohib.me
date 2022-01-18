@@ -24,7 +24,7 @@ pre[class*='language-'].line-numbers {
   padding-top: 1rem;
 }
 .gatsby-highlight {
-  overflow: auto;
+  overflow: hidden;
 }
 .gatsby-highlight pre {
   border-radius: 8px;
