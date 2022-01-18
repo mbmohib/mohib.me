@@ -10,20 +10,24 @@ export default function Template({ data }) {
   return (
     <Layout>
       <div className="container mt-10">
-        <div className="grid sm:grid-cols-12 sm:gap-x-8">
+        <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-8">
-            <h1 className="text-2xl mb-2">{post.frontmatter.title}</h1>
+            <h1 className="text-3xl mb-2 font-semibold">
+              {post.frontmatter.title}
+            </h1>
             <p className="mb-4">
               {post.frontmatter.date} — {post.timeToRead} min read
             </p>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-12 sm:gap-x-10">
+        <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-9">
-            <Image className="rounded-md" fluid={featuredImgFluid} />
+            <div className="h-[300px] lg:h-[400px] xl:h-[500px] rounded-md overflow-hidden">
+              <Image className="rounded-md" fluid={featuredImgFluid} />
+            </div>
             <article
-              className="prose lg:prose-xl mt-8"
+              className="prose lg:prose-lg mt-8"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>

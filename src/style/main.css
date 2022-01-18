@@ -33,17 +33,3 @@ h6 {
 }
 
 @tailwind utilities;
-
-.gatsby-highlight-code-line {
-  background-color: rgba(110, 118, 129, 0.4);
-  display: block;
-  margin-right: -1em;
-  margin-left: -1em;
-  padding-right: 1em;
-  padding-left: 0.75em;
-  border-left: 0.25em solid hsla(var(--p) / var(--tw-bg-opacity, 1));
-}
-:not(pre) > code[class*='language-'],
-pre[class*='language-'] {
-  background-color: hsl(var(--n));
-}

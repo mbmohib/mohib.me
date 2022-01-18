@@ -8,6 +8,7 @@
     "autoprefixer": "^10.4.1",
     "daisyui": "^1.22.0",
     "gatsby": "^4.4.0",
+    "gatsby-background-image": "^1.6.0",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-google-analytics": "^4.4.0",
     "gatsby-plugin-image": "^2.4.0",

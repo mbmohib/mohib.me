@@ -1,0 +1,31 @@
+.gatsby-highlight-code-line {
+  background-color: rgba(110, 118, 129, 0.4);
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid hsla(var(--p) / var(--tw-bg-opacity, 1));
+}
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background-color: hsl(var(--b2));
+}
+pre[class*='language-'] {
+  margin: 0.5em 0;
+  overflow: auto;
+  padding: 1em;
+}
+pre[class*='language-'].line-numbers {
+  padding-left: 60px;
+}
+.line-numbers .line-numbers-rows {
+  padding-left: 16px;
+  padding-top: 1rem;
+}
+.gatsby-highlight {
+  overflow: auto;
+}
+.gatsby-highlight pre {
+  border-radius: 8px;
+}

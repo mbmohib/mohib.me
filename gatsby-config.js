@@ -29,7 +29,7 @@ module.exports = {
               classPrefix: 'language-',
               inlineCodeMarker: null,
               aliases: { sh: 'bash', js: 'javascript' },
-              showLineNumbers: false,
+              showLineNumbers: true,
               noInlineHighlight: false,
               languageExtensions: [],
               prompt: {

@@ -1,50 +1,51 @@
 ---
-path: 'get-logout-from-all-tab'
-date: '2022-01-16'
-title: 'Get logout from all tab!'
+path: 'improve-ux-by-logging-out-from-all-tabs'
+date: '2022-01-18'
+title: 'Improve UX by logging out from all tabs'
 featuredImage: sync.jpg
 isFeatured: true
+topic: UX, React
 ---
 
-It's great to have a comment section on any blog site. People can easily express
-their opinion regarding a blog post. It creates an opportunity for knowledge
-sharing. In this tiny post, I'll try to go through the easiest steps of adding
-`Disqus` commenting on any `Gatsby` site. So, let's start...
+In a single page app when user open multiple tab and logout from one tab, other
+tab should also be logged out. But often we see other tabs seems authenticated
+and user try to interact with, sometimes write/change content. Then when they do
+any api related action like save or publish the api return `401` and it all
+leads to a bad user experience.
 
-### Step 1: Install gatsby-plugin-disqus
+We can solve this problem using `storage` event.
 
-Instead of configuring everything by ourselves manually, we'll use a plugin
-called [gatsby-plugin-disqus](https://github.com/tterb/gatsby-plugin-disqus).
-Now, install the plugin by running the following command:
+** This tutorial is written on `React` but the knowledge can be implemented in
+other app too. **
 
-### Step 2: Configure plugin
+## Set data to `localStorage` when user logout
 
-Add this code to your `gatsby-config.js` file's plugins section:
-
-### Step 3: Use Disqus component in your blog-post template file
-
-Import the `Disqus` component from the library:
+First we need to push some data to `localStorage` every time user perform
+logout. The key can be anything, just the value needs to be updated.
 
 ```javascript
-import { Disqus } from 'gatsby-plugin-disqus';
+window.localStorage.setItem('logout', Date.now().toString());
 ```
 
-Create configuration for each post in the `render` method:
+## Attach `storage` event handler
+
+Then we will register a event handler in the root of our app. It can be in
+`app.js` or `index.js` depends on your app's architecture.
 
 ```javascript
-//change according to your data
-const disqusConfig = {
-  url: `${siteUrl}/${post.fields.slug}`,
-  identifier: post.fields.slug,
-  title: post.frontmatter.title,
+const handleSyncLogout = (event: StorageEvent) => {
+  if (event.key === 'logout') {
+    // perform logout action
+  }
 };
+
+useEffect(() => {
+  window.addEventListener('storage', handleSyncLogout);
+
+  return () => {
+    window.removeEventListener('storage', handleSyncLogout);
+  };
+}, []);
 ```
 
-Finally add the `Disqus` component where ever you want:
-
-**N.B. You can get the shortname of your site on Disqus's general settings
-page.**
-
-That's it! If you follow the steps correctly your site will have a comment
-section just like below. Let me know if the tutorial works or not, or any other
-queries you like to know.
+This way we can easily handle multi-tab logout and make our user happy.
