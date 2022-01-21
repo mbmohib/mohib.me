@@ -4,14 +4,14 @@ import { Layout, Blog, Project, ProfileLink } from '../components';
 import SEO from '../components/seo';
 import heroImage from '../assets/images/hero-image.svg';
 import { profileLinks } from '../config';
-import { Edge } from '../types';
+import { PostEdge, ProjectEdge } from '../types';
 
 interface IndexProps {
   data: any;
 }
 
 export default function Index({ data }: IndexProps) {
-  const { edges } = data.allMarkdownRemark;
+  const { posts, projects } = data.allMarkdownRemark;
 
   return (
     <Layout>
@@ -19,13 +19,13 @@ export default function Index({ data }: IndexProps) {
 
       <section id="hero">
         <div className="container">
-          <div className="grid sm:grid-cols-2 mt-4">
-            <div className="flex order-2 sm:order-1 flex-col justify-center">
+          <div className="grid mt-4 sm:grid-cols-2">
+            <div className="flex flex-col justify-center order-2 sm:order-1">
               <h1 className="text-3xl sm:text-4xl font-title">
                 A JavaScript Developer, Writing code for fun!
               </h1>
               <div className="mt-3">
-                <Link to="/blog" className="mr-2 mb-2 sm:mb-0 btn btn-primary">
+                <Link to="/blog" className="mb-2 mr-2 sm:mb-0 btn btn-primary">
                   {' '}
                   Read my Blog
                 </Link>
@@ -35,7 +35,7 @@ export default function Index({ data }: IndexProps) {
                 </Link>
               </div>
             </div>
-            <div className="flex order-1 sm:order-2 justify-center sm:justify-end">
+            <div className="flex justify-center order-1 sm:order-2 sm:justify-end">
               <img className="w-3/4" src={heroImage} alt="" />
             </div>
           </div>
@@ -44,8 +44,8 @@ export default function Index({ data }: IndexProps) {
 
       <section id="blog" className="my-10 rounded-md">
         <div className="container">
-          <div className="grid sm:grid-cols-2 gap-4">
-            {edges.map((edge: Edge) => (
+          <div className="grid gap-4 sm:grid-cols-2">
+            {posts.edges.map((edge: PostEdge) => (
               <Blog key={edge.node.id} post={edge.node} />
             ))}
           </div>
@@ -60,17 +60,17 @@ export default function Index({ data }: IndexProps) {
       <section id="project" className="py-8 sm:py-10 bg-base-200">
         <div className="container">
           <h2 className="mb-3 section-heading">My Lab</h2>
-          <div className="grid sm:grid-cols-3 gap-4">
-            <Project />
-            <Project />
-            <Project />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {projects.edges.map((edge: ProjectEdge) => (
+              <Project project={edge.node} key={edge.node.id} />
+            ))}
           </div>
         </div>
       </section>
 
       <section id="contact" className="pt-10">
         <div className="container">
-          <div className="grid sm:grid-cols-12 gap-6">
+          <div className="grid gap-6 sm:grid-cols-12">
             <form className="sm:col-span-7">
               <div className=" form-control">
                 <label className="label">
@@ -82,7 +82,7 @@ export default function Index({ data }: IndexProps) {
                   className="rounded-lg input input-bordered focus:input-primary"
                 />
               </div>
-              <div className="form-control mt-4">
+              <div className="mt-4 form-control">
                 <label className="label">
                   <span className="label-text">Your Message</span>
                 </label>
@@ -99,7 +99,7 @@ export default function Index({ data }: IndexProps) {
               </button>
             </form>
 
-            <div className="sm:col-span-4 pl-4 mt-4">
+            <div className="pl-4 mt-4 sm:col-span-4">
               {profileLinks.map(profile => (
                 <ProfileLink profile={profile} />
               ))}
@@ -113,10 +113,12 @@ export default function Index({ data }: IndexProps) {
 
 export const pageQuery = graphql`
   query IndexQuery {
-    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+    posts: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/posts/" } }
+      sort: { order: DESC, fields: [frontmatter___date] }
+    ) {
       edges {
         node {
-          excerpt(pruneLength: 250)
           id
           frontmatter {
             title
@@ -132,6 +134,21 @@ export const pageQuery = graphql`
             }
           }
           timeToRead
+        }
+      }
+    }
+    projects: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/projects/" } }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            github
+            live
+            tags
+          }
         }
       }
     }

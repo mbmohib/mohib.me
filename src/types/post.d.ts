@@ -13,6 +13,6 @@ export interface Post {
   tableOfContents: string;
 }
 
-export interface Edge {
+export interface PostEdge {
   node: Post;
 }
