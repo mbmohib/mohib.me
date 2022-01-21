@@ -11,7 +11,7 @@ interface IndexProps {
 }
 
 export default function Index({ data }: IndexProps) {
-  const { posts, projects } = data.allMarkdownRemark;
+  const { posts, projects } = data;
 
   return (
     <Layout>
@@ -101,7 +101,7 @@ export default function Index({ data }: IndexProps) {
 
             <div className="pl-4 mt-4 sm:col-span-4">
               {profileLinks.map(profile => (
-                <ProfileLink profile={profile} />
+                <ProfileLink key={profile.label} profile={profile} />
               ))}
             </div>
           </div>
@@ -148,6 +148,7 @@ export const pageQuery = graphql`
             github
             live
             tags
+            summery
           }
         }
       }

@@ -8,6 +8,8 @@ isFeatured: true
 topics: ['UX', 'React']
 ---
 
+## Introduction
+
 We love the single-page application, It offers a much better user experience
 (UX). It also brings some new challenges like when the user opens multiple tabs
 and log out from one tab, then another tab should also be logged out. But often
