@@ -5,3 +5,4 @@ export { default as Footer } from './footer';
 export { default as Project } from './project';
 export { default as ProfileLink } from './profile-link';
 export { default as SEO } from './seo';
+export { default as HeroImage } from './hero-image';

@@ -1,8 +1,7 @@
 import { Link, graphql } from 'gatsby';
 
 import { Layout, Blog, Project, ProfileLink } from '../components';
-import SEO from '../components/seo';
-import heroImage from '../assets/images/hero-image.svg';
+import { SEO, HeroImage } from '../components';
 import { profileLinks } from '../config';
 import { PostEdge, ProjectEdge } from '../types';
 
@@ -19,9 +18,9 @@ export default function Index({ data }: IndexProps) {
 
       <section id="hero">
         <div className="container">
-          <div className="grid mt-4 sm:grid-cols-2">
-            <div className="flex flex-col justify-center order-2 sm:order-1">
-              <h1 className="text-3xl sm:text-4xl font-title">
+          <div className="grid gap-6 mt-4 sm:grid-cols-12">
+            <div className="flex flex-col justify-center order-2 sm:order-1 sm:col-span-7">
+              <h1 className="text-2xl sm:text-4xl font-title">
                 A JavaScript Developer, Writing code for fun!
               </h1>
               <div className="mt-3">
@@ -35,8 +34,8 @@ export default function Index({ data }: IndexProps) {
                 </Link>
               </div>
             </div>
-            <div className="flex justify-center order-1 sm:order-2 sm:justify-end">
-              <img className="w-3/4" src={heroImage} alt="" />
+            <div className="flex justify-center order-1 w-4/6 mx-auto sm:w-5/6 sm:order-2 sm:justify-end sm:col-span-5">
+              <HeroImage />
             </div>
           </div>
         </div>
