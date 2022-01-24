@@ -5,7 +5,7 @@ export interface Post {
     title: string;
     featuredImage: any;
     isFeatured: boolean;
-    topics: Array;
+    topics: string[];
   };
   id: string;
   html: string;

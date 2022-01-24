@@ -1,33 +1,31 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { Layout, SEO } from '../components';
-import { CalenderIcon, ClockIcon } from '../assets/icons';
+import { Layout, SEO, PostMeta } from '../components';
 
-export default function BlogTemplate({ data }) {
+import { Post } from '../types';
+
+interface BlogTemplateProps {
+  data: {
+    markdownRemark: Post;
+  };
+}
+
+export default function BlogTemplate({ data }: BlogTemplateProps) {
   const { markdownRemark: post } = data;
   const featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid;
 
   return (
     <Layout>
       <SEO title={post.frontmatter.title} />
-      <div className="container mt-10">
+      <div className="container mt-5 sm:mt-10">
         <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-9">
-            <h1 className="text-3xl mb-2 font-semibold">
+            <h1 className="mb-2 text-xl font-semibold sm:text-3xl">
               {post.frontmatter.title}
             </h1>
-            <div className="mb-4 flex justify-between">
-              <div className="flex">
-                <div className="flex">
-                  <CalenderIcon className="fill-base-100 mr-1" />
-                  {post.frontmatter.date}
-                </div>
-                <div className="ml-2 flex">
-                  <ClockIcon className="fill-base-100 mr-1" />
-                  {post.timeToRead} min read
-                </div>
-              </div>
+            <div className="flex flex-col justify-between mb-4 sm:flex-row">
+              <PostMeta date={post.frontmatter.date} time={post.timeToRead} />
               <div className="flex">
                 {post.frontmatter.topics.map(topic => (
                   <p className="ml-1 text-primary" key={topic}>
@@ -41,16 +39,16 @@ export default function BlogTemplate({ data }) {
 
         <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-9">
-            <div className="h-[300px] lg:h-[400px] xl:h-[500px] rounded-md overflow-hidden">
+            <div className="lg:h-[400px] xl:h-[500px] rounded-md overflow-hidden">
               <Image className="rounded-md" fluid={featuredImgFluid} />
             </div>
             <article
-              className="article prose lg:prose-lg mt-8 mx-auto"
+              className="mx-auto mt-8 prose article lg:prose-lg"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>
           <div className="hidden sm:block sm:col-span-3">
-            <h2 className="text-lg mb-4">Table of Contents</h2>
+            <h2 className="mb-4 text-lg">Table of Contents</h2>
             <div
               className="prose prose-a:no-underline prose-li:mb-2"
               dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
