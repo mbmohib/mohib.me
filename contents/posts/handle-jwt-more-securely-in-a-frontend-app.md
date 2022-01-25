@@ -1,7 +1,7 @@
 ---
-path: 'handle-your-jwt-more-securely-in-a-single-page-app'
+path: 'handle-jwt-more-securely-in-a-single-page-app'
 date: '2022-01-21'
-title: 'Handle your JWT more securely in a single page app'
+title: 'Handle JWT more securely in a single page app'
 featuredImage: ../images/security.jpg
 isFeatured: true
 topics: ['Authentication', 'React']
@@ -20,7 +20,7 @@ stolen easily. So we can increase our security by implementing refresh token &
 > It's more of a "React Implementation" of the article. You will get better
 > understanding if you read that first.
 
-## Things to do:
+## Things to do
 
 1. Create JWT for a very short time, optimal is 10-15mins.
 2. Implement **Refresh Token**
@@ -43,7 +43,7 @@ To make our service work with `httpOnly` cookie, we need to add `origin` and
 `credentials` to `cors` settings.
 
 ```javascript
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'https://example.com' }));
 ```
 
 > **_NOTE:_** You can get full code
@@ -69,7 +69,7 @@ router.post('/login', async (req: Request, res: Response) => {
     const { token } = generateToken(user, '10m');
 
     // send refresh token thorough httpOnly cookie
-    res.cookie('rt', refreshToken, {
+    res.cookie('cookie-name', refreshToken, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 1000; // setting cookie age for 1day
     });
@@ -156,7 +156,8 @@ export const useLogin = () => {
 
 This is nothing special, we just setting auth data, and two function,
 **setAuth** and **removeAuth** to our context value to access anywhere in our
-app.
+app. Although, we doing one extra thing in line number 29, 30, is decoding `JWT`
+store expiry in our auth data. You will find out next, why we are doing this.
 
 ```javascript
 import { createContext, useContext, useMemo, useState } from 'react';
@@ -219,3 +220,181 @@ export default function useAuth() {
   return context;
 }
 ```
+
+We can verify that the **Refresh Token** is setting as `httpOnly` by inspecting
+the app and opening `Cookies` section in `Application` tab. And also, if you go
+to the console and execute `document.cookie`, you will see our `ra` aka
+**Refresh Token** cookie is not there, so it's not accessible by javascript.
+
+![image of httpOnly cookie in of handle your JWT more securely in a single page app's article](../images/image-of-httpOnly-cookie.png 'httpOnly cookie')
+
+So, our **Refresh Token** is setting by our service, and we are storing our
+access token in our memory that will be used as Authorized header. Now we have
+two problems that needs to be handled
+
+1. Every time we reload our app, the token will be gone and we will loose the
+   authentication as we are storing our access token in memory.
+2. The **Access Token** expires within very short time, like in 10mins. So we
+   will need to silently get new token before it expired.
+
+### Handle app reload
+
+In our `app.tsx` we will first show loading and in the meantime we will hit our
+**Refresh Token** route to get a new **Access Token**, so every time our user
+reload we will get a new **Access Token**
+
+```javascript
+export default function App() {
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const getRefreshToken = useRefreshToken();
+
+  useEffect(() => {
+    getRefreshToken.mutate(
+      {
+        data: null,
+      },
+      {
+        onSettled: () => {
+          setLoading(false);
+        },
+        onError: () => {
+          navigate('/login');
+        },
+      },
+    );
+  }, []);
+
+  return (
+    <PreLoader isLoading={loading}>
+      <AppRoutes />
+    </PreLoader>
+  );
+}
+```
+
+### Handle **Access Token** expiry
+
+Now there are multiple ways to handle the expiry token. One way can be every
+time the token expire and the server return `401` we will hit our
+`/refresh-token` route and get new **Access Token** then again hit the protected
+route. But I like another way most, in this way every time we sent any api
+request first we check if the current token expire, if it's expire first we will
+get new **Access Token** then sent the api request. We can easily implement this
+using `axios` `interceptors`. So let's create another cool custom hook
+`use-axios.ts`
+
+```javascript{15-20}
+export default function useAxios() {
+  const { token, expiredIn, setAuth, removeAuth } = useAuth();
+
+  const axiosClient: Axios = useMemo(() => {
+    const axiosInstance = axios.create({
+      baseURL: apiEndpoint,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    axiosInstance.interceptors.request.use(
+      async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
+        if (token && expiredIn && Date.now() >= expiredIn * 1000) {
+          const { data, status } = await axios.post(
+            '/refresh-token',
+            {},
+            config,
+          );
+
+          if (config.headers && status === 200) {
+            setAuth(data.data);
+            // eslint-disable-next-line no-param-reassign
+            config.headers.Authorization = `Bearer ${data.data.token}`;
+          }
+        } else if (token && config.headers) {
+          // eslint-disable-next-line no-param-reassign
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        return config;
+      },
+    );
+
+    axiosInstance.interceptors.response.use(
+      undefined,
+      (error: AxiosError): Promise<AxiosError> => {
+        const statusCode = error.response ? error.response.status : null;
+
+        if (statusCode === 401) {
+          removeAuth();
+        }
+
+        return Promise.reject(error);
+      },
+    );
+
+    return axiosInstance;
+
+    // eslint-disable-next-line
+  }, [token]);
+
+  return axiosClient;
+}
+```
+
+Earlier in our [Create auth context](#create-auth-context) section, in line 19
+we have decoded the token expiry and save it our context, now in the above
+highlighted line 15, we will check if token expired and get new token.
+
+## Let's talk Logout
+
+Normally when we were storing our token in `localStorage` we simply, delete
+`auth` from `localStorage` and user is logged out, but in our **Refresh Token**
+workflow we need to create an `api` for this.
+
+### Create logout route
+
+In this `/logout` endpoint we will set a new token with **same name**, where the
+value will be empty string and we also set the `maxAge` to `0`
+
+```javascript
+/*
+  This route will perform login and generate both tokens
+*/
+router.post('/logout', async (req: Request, res: Response) => {
+  try {
+    res.cookie('rt', '', {
+      httpOnly: true,
+      maxAge: 0,
+    });
+
+    res.status(200).json({
+      data: {},
+      message: 'Logout successfully',
+    });
+  } catch (err) {
+    // handler error
+  }
+});
+```
+
+### Handle logout in client
+
+We also need to remove our `auth` data from our memory, so let's write a `hook`
+for that.
+
+```javascript
+export const useLogout = () => {
+  const axios = useAxios();
+  const { removeAuth } = useAuth();
+
+  return useMutation(() => axios.post(`/logout`), {
+    onSuccess: () => {
+      removeAuth();
+    },
+  });
+};
+```
+
+So, this is how we can implement a **Refresh Token** workflow, and increase our
+security.

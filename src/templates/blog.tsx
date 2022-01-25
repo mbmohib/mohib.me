@@ -43,7 +43,7 @@ export default function BlogTemplate({ data }: BlogTemplateProps) {
               <Image className="rounded-md" fluid={featuredImgFluid} />
             </div>
             <article
-              className="mx-auto mt-8 prose article lg:prose-lg"
+              className="mx-auto mt-8 prose article lg:prose-lg prose-figcaption:text-center prose-figcaption:italic prose-img:rounded"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
           </div>
