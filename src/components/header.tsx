@@ -1,5 +1,6 @@
 import { mainMenu } from '../config';
 import { Link } from 'gatsby';
+import logo from '../assets/images/logo.svg';
 
 export default function Header() {
   return (
@@ -7,7 +8,9 @@ export default function Header() {
       <div className="flex justify-between">
         <div className="flex items-center">
           <div className="mr-8">
-            <Link to="/">mohib</Link>
+            <Link to="/">
+              <img src={logo} alt="logo of mohib.me" />
+            </Link>
           </div>
           <nav className="hidden sm:block">
             {mainMenu.map(menu => (

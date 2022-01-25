@@ -78,13 +78,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `mohib.me`,
+        short_name: `mohib`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#152331`,
+        theme_color: `#57AA6F`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/assets/images/logo-mini.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -102,6 +102,20 @@ module.exports = {
         pageTransitionDelay: 0,
         // Defers execution of google analytics script after page load
         defer: false,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          'G-CELQJT36YL', // Google Analytics / GA
+        ],
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: true,
+        },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
