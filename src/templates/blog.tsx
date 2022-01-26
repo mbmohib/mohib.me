@@ -25,7 +25,10 @@ export default function BlogTemplate({ data }: BlogTemplateProps) {
               {post.frontmatter.title}
             </h1>
             <div className="flex flex-col justify-between mb-4 sm:flex-row">
-              <PostMeta date={post.frontmatter.date} time={post.timeToRead} />
+              <PostMeta
+                date={post.frontmatter.createdAt}
+                time={post.timeToRead}
+              />
               <div className="flex">
                 {post.frontmatter.topics.map(topic => (
                   <p className="ml-1 text-primary" key={topic}>
@@ -65,7 +68,8 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { path: { eq: $slug } }) {
       html
       frontmatter {
-        date(formatString: "DD MMMM, YYYY")
+        createdAt(formatString: "DD MMMM, YYYY")
+        updatedAt(formatString: "DD MMMM, YYYY")
         path
         title
         topics

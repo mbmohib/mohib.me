@@ -1,6 +1,7 @@
 ---
 path: 'handle-jwt-more-securely-in-a-single-page-app'
-date: '2022-01-21'
+createdAt: '2022-01-21'
+updatedAt: '2022-01-26'
 title: 'Handle JWT more securely in a single page app'
 featuredImage: ../images/security.jpg
 isFeatured: true
@@ -9,11 +10,11 @@ topics: ['Authentication', 'React']
 
 ## Introduction
 
-Now a days, JWT is one of the most popular way to implement authentication. But
-with every good, there is a bad! As we normally store our JWT token in
-`localStorage` or `cookie`, it's very lucrative to the attackers and can be
-stolen easily. So we can increase our security by implementing refresh token &
-`httpOnly` cookie.
+Nowadays, JWT is one of the most popular ways to implement authentication. It's
+a fantastic way to implement authentication but it has some security issues. As
+we normally store our JWT token in `localStorage` or `cookie`, it's very
+lucrative to the attackers and can be stolen easily. So we need to increase our
+security. We can do this by implementing a refresh token with `httpOnly` cookie.
 
 > **_NOTE:_** This article is heavily inspired from
 > [The Ultimate Guide to handling JWTs on frontend clients (GraphQL)](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#jwt_structure)
@@ -29,18 +30,19 @@ stolen easily. So we can increase our security by implementing refresh token &
 
 ## Workflow
 
-When user first send login request to our service, after verify the user we will
-create two JWT tokens. We will send one token aka **Refresh Token** over
-`httpOnly` cookie, and another one aka **Access Token** through api response.
-Now in the client side we will store the **Access Token** in our memory, and
-will send it as Authorization header. Before expire the **Access Token** token,
-we another request to our `/refresh-token` endpoint, here we verify and send
-another **Access Token**.
+When a user first sends a login request to our service, after verifying the user
+we will create two JWT tokens. We will send one token, we will call it **Refresh
+Token** over `httpOnly` cookie, and another one, this we will call it **Access
+Token** through API response. Now on the client-side, we will store the **Access
+Token** in our memory instead of `localStorage` or `cookie` and used the
+**Access Token** as `Authorized` `header`. Now, before the **Access Token**
+token expired, we send another request to our `/refresh-token` endpoint, here we
+verify the **Refresh Token** and send another **Access Token**.
 
 ## Implement API
 
-To make our service work with `httpOnly` cookie, we need to add `origin` and
-`credentials` to `cors` settings.
+First, we need to make our service work with `httpOnly` cookie, we will add
+`origin` and `credentials` to `cors` settings.
 
 ```javascript
 app.use(cors({ credentials: true, origin: 'https://example.com' }));
@@ -50,8 +52,8 @@ app.use(cors({ credentials: true, origin: 'https://example.com' }));
 > [here](https://github.com/mbmohib/jwt-auth-refresh-token)
 
 Now we need to create two route functions, one for creating **Refresh Token**.
-It's expiry can be one day or more depends on your app. And another one is
-**Access Token**, it's expiry should not be more than 10-15mins.
+Its expiry can be one day or more depending on your app. And another one is
+**Access Token**, its expiry should not be more than 10-15mins.
 
 ### Create login function
 
@@ -69,7 +71,7 @@ router.post('/login', async (req: Request, res: Response) => {
     const { token } = generateToken(user, '10m');
 
     // send refresh token thorough httpOnly cookie
-    res.cookie('cookie-name', refreshToken, {
+    res.cookie('rt', refreshToken, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 1000; // setting cookie age for 1day
     });
@@ -127,17 +129,17 @@ router.post('/refresh-token', async (req: Request, res: Response) => {
 
 As our service is fully ready to work with refresh token workflow, now we will
 implement it in our favorite `React` app. As per our discussion above, our
-**Refresh token** will be set by server and we can't access it using javascript.
-On the other hand the **Access Token** that has been sent over api, we will
-store it in our memory. It can be `context` or `redux store` depends on your
-implementation.
+**Refresh token** will be set by the server and we can't access it using
+javascript. On the other hand the **Access Token** that has been sent over API,
+we will store in our memory. It can be `context` or `redux store` depending on
+your implementation.
 
 ### Handle login
 
-For handling api request I am using my favorite library
+For handling API request I am using my favorite library
 [`React Query`](https://react-query.tanstack.com/). It makes handing
-data-fetching so much easy! In line number 7, after receiving the data we are
-storing it in our context.
+data-fetching so much easy! Here, in line number 7, after receiving the data we
+are storing it in our context.
 
 ```javascript
 export const useLogin = () => {
@@ -154,9 +156,9 @@ export const useLogin = () => {
 
 ### Create auth context
 
-This is nothing special, we just setting auth data, and two function,
-**setAuth** and **removeAuth** to our context value to access anywhere in our
-app. Although, we doing one extra thing in line number 29, 30, is decoding `JWT`
+This is nothing special, we just set auth data, and two functions, `setAuth` and
+`removeAuth` to our context value to access anywhere in our app. Although, we
+are doing one extra thing in lines number 29, 30, which is decoding `JWT` and
 store expiry in our auth data. You will find out next, why we are doing this.
 
 ```javascript
@@ -221,27 +223,27 @@ export default function useAuth() {
 }
 ```
 
-We can verify that the **Refresh Token** is setting as `httpOnly` by inspecting
+Now, we can verify that the **Refresh Token** is set as `httpOnly` by inspecting
 the app and opening `Cookies` section in `Application` tab. And also, if you go
 to the console and execute `document.cookie`, you will see our `ra` aka
 **Refresh Token** cookie is not there, so it's not accessible by javascript.
 
-![image of httpOnly cookie in of handle your JWT more securely in a single page app's article](../images/image-of-httpOnly-cookie.png 'httpOnly cookie')
+![image of httpOnly cookie in of handling your JWT more securely in a single page app's article](../images/image-of-httpOnly-cookie.png 'httpOnly cookie')
 
-So, our **Refresh Token** is setting by our service, and we are storing our
-access token in our memory that will be used as Authorized header. Now we have
-two problems that needs to be handled
+So, our **Refresh Token** is set by our service, and we are storing our **Access
+Token** in our memory, that will be used as `Authorized` `header`. Now we have
+two problems that need to be handled
 
 1. Every time we reload our app, the token will be gone and we will loose the
-   authentication as we are storing our access token in memory.
-2. The **Access Token** expires within very short time, like in 10mins. So we
-   will need to silently get new token before it expired.
+   authentication as we are storing **Access Token** in memory.
+2. The **Access Token** expires within a very short time, like in 10mins. So we
+   will need to silently get a new token before it expired.
 
 ### Handle app reload
 
-In our `app.tsx` we will first show loading and in the meantime we will hit our
+In our `app.tsx` we will first show loading and in the meantime, we will hit our
 **Refresh Token** route to get a new **Access Token**, so every time our user
-reload we will get a new **Access Token**
+reload we will get a new **Access Token** and keep our used authenticated.
 
 ```javascript
 export default function App() {
@@ -276,13 +278,13 @@ export default function App() {
 ### Handle **Access Token** expiry
 
 Now there are multiple ways to handle the expiry token. One way can be every
-time the token expire and the server return `401` we will hit our
+time the token expires and the server return `401` we will hit our
 `/refresh-token` route and get new **Access Token** then again hit the protected
-route. But I like another way most, in this way every time we sent any api
-request first we check if the current token expire, if it's expire first we will
-get new **Access Token** then sent the api request. We can easily implement this
-using `axios` `interceptors`. So let's create another cool custom hook
-`use-axios.ts`
+route. But I like another way most, in this way every time we sent any API
+request first we check the current token expiry, if it expires first we will get
+new **Access Token** then sent the API request along with our new token. We can
+easily implement this using `axios` `interceptors`. So let's create another cool
+custom hook `use-axios.ts`
 
 ```javascript{15-20}
 export default function useAxios() {
@@ -343,23 +345,23 @@ export default function useAxios() {
 ```
 
 Earlier in our [Create auth context](#create-auth-context) section, in line 19
-we have decoded the token expiry and save it our context, now in the above
-highlighted line 15, we will check if token expired and get new token.
+we have decoded the token expiry and saved it in our context, now in the above
+line 15, we will check if the token expired and get a new token.
 
 ## Let's talk Logout
 
 Normally when we were storing our token in `localStorage` we simply, delete
 `auth` from `localStorage` and user is logged out, but in our **Refresh Token**
-workflow we need to create an `api` for this.
+the workflow we need to create an `API` for this.
 
 ### Create logout route
 
-In this `/logout` endpoint we will set a new token with **same name**, where the
-value will be empty string and we also set the `maxAge` to `0`
+In this `/logout` endpoint we will set a new token with **same cookie name**,
+where the the value will be an empty string and we also set the `maxAge` to `0`
 
 ```javascript
 /*
-  This route will perform login and generate both tokens
+  This route will perform logout
 */
 router.post('/logout', async (req: Request, res: Response) => {
   try {
@@ -396,5 +398,43 @@ export const useLogout = () => {
 };
 ```
 
-So, this is how we can implement a **Refresh Token** workflow, and increase our
-security.
+## Handle **Refresh Token** expiry
+
+Our **Refresh Token** will also expire, we can renew in multiple ways, one way
+is, every time we create a new **Access Token** we will also create new
+**Refresh Token** and send as `httpOnly` cookie.
+
+## Going extra mile
+
+Now, if you check `Request Headers` for any request you will fine we are sending
+our **Refresh Token** named `rt` cookie with every request.
+
+![image of request header containing refresh token of handling your JWT more securely in a single page app's article](../images/reqeust-header-containing-refresh-token.png 'request header containing refresh token')
+
+But we actually don't need our **Refresh Token** passing with every API request,
+we can limit this to only `/refresh-token` endpoint by including `path` in our
+`cookie` options.
+
+```javascript{4}
+res.cookie('rt', refreshToken, {
+  httpOnly: true,
+  maxAge: refreshTokenMaxAge,
+  path: '/refresh-token',
+});
+```
+
+Now, if you check you see, only in `/refresh-token` endpoint we are sending the
+**Refresh Token**
+
+## Conclusion
+
+The way we have implemented our authentication its surely better than simply
+storing it in our `localStorage` but its not 100% secure, in fact nothing is,
+but it's much better implementation.
+
+## Resources
+
+1. [The Ultimate Guide to handling JWTs on frontend clients (GraphQL)](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#jwt_structure) -
+   hasura.io
+2. [JWT Authentication Node.js Tutorial with GraphQL and React](https://www.youtube.com/watch?v=25GS0MLT8JU&t=8384s) -
+   Ben Awad

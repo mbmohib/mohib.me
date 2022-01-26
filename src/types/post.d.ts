@@ -1,7 +1,8 @@
 export interface Post {
   frontmatter: {
     path: string;
-    date: string;
+    createdAt: string;
+    updatedAt: string;
     title: string;
     featuredImage: any;
     isFeatured: boolean;

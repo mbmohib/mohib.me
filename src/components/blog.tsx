@@ -32,7 +32,7 @@ export default function Blog({ variant = 'medium', post }: BlogProps) {
         </h1>
       </Link>
 
-      <PostMeta date={post.frontmatter.date} time={post.timeToRead} />
+      <PostMeta date={post.frontmatter.createdAt} time={post.timeToRead} />
     </div>
   );
 }

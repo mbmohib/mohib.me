@@ -114,14 +114,14 @@ export const pageQuery = graphql`
   query IndexQuery {
     posts: allMarkdownRemark(
       filter: { fileAbsolutePath: { regex: "/posts/" } }
-      sort: { order: DESC, fields: [frontmatter___date] }
+      sort: { order: DESC, fields: [frontmatter___createdAt] }
     ) {
       edges {
         node {
           id
           frontmatter {
             title
-            date(formatString: "MMMM DD, YYYY")
+            createdAt(formatString: "MMMM DD, YYYY")
             path
             topics
             featuredImage {

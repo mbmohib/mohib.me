@@ -1,6 +1,6 @@
 ---
 path: 'improve-ux-by-logging-out-from-other-tabs'
-date: '2022-01-18'
+createdAt: '2022-01-18'
 updatedAt: '2022-01-18'
 title: 'Improve UX by logging out from other tabs'
 featuredImage: ../images/sync.jpg

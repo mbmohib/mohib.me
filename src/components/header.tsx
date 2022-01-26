@@ -8,8 +8,8 @@ export default function Header() {
       <div className="flex justify-between">
         <div className="flex items-center">
           <div className="mr-8">
-            <Link to="/">
-              <img src={logo} alt="logo of mohib.me" />
+            <Link className="block" to="/">
+              <img className="w-[130px]" src={logo} alt="logo of mohib.me" />
             </Link>
           </div>
           <nav className="hidden sm:block">
