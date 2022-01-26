@@ -26,7 +26,7 @@ export default function Index({ data }: IndexProps) {
               </h1>
               <p className="mt-1 text-md">
                 I'm a software engineer in Bangladesh. My favorite language is
-                <span className="font-bold">JavaScript</span>. I love working
+                <span className="font-bold"> JavaScript</span>. I love working
                 with frontend staff like{' '}
                 <span className="font-bold">React</span>, CSS, Animation. I've
                 also some knowledge with the backend technologies like{' '}
