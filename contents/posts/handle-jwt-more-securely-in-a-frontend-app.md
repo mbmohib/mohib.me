@@ -10,11 +10,12 @@ topics: ['Authentication', 'React']
 
 ## Introduction
 
-Nowadays, JWT is one of the most popular ways to implement authentication. It's
-a fantastic way to implement authentication but it has some security issues. As
-we normally store our JWT token in `localStorage` or `cookie`, it's very
-lucrative to the attackers and can be stolen easily. So we need to increase our
-security. We can do this by implementing a refresh token with `httpOnly` cookie.
+Nowadays, `JWT` is one of the most popular ways to implement authentication.
+It's a fantastic way to implement authentication but it has some security
+issues. As we normally store our `JWT` token in `localStorage` or `cookie`, it's
+very lucrative to the attackers and can be stolen easily. So we need to increase
+our security. We can do this by implementing a refresh token with `httpOnly`
+cookie.
 
 > **_NOTE:_** This article is heavily inspired from
 > [The Ultimate Guide to handling JWTs on frontend clients (GraphQL)](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#jwt_structure)
@@ -23,19 +24,19 @@ security. We can do this by implementing a refresh token with `httpOnly` cookie.
 
 ## Things to do
 
-1. Create JWT for a very short time, optimal is 10-15mins.
+1. Create `JWT` for a very short time, optimal is 10-15mins.
 2. Implement **Refresh Token**
 3. Use `httpOnly` cookie
-4. Store JWT in a memory instead of `localStorage` or `cookie`.
+4. Store `JWT` in a memory instead of `localStorage` or `cookie`.
 
 ## Workflow
 
 When a user first sends a login request to our service, after verifying the user
-we will create two JWT tokens. We will send one token, we will call it **Refresh
-Token** over `httpOnly` cookie, and another one, this we will call it **Access
-Token** through API response. Now on the client-side, we will store the **Access
-Token** in our memory instead of `localStorage` or `cookie` and used the
-**Access Token** as `Authorized` `header`. Now, before the **Access Token**
+we will create two `JWT` tokens. We will send one token, we will call it
+**Refresh Token** over `httpOnly` cookie, and another one, this we will call it
+**Access Token** through API response. Now on the client-side, we will store the
+**Access Token** in our memory instead of `localStorage` or `cookie` and used
+the **Access Token** as `Authorized` `header`. Now, before the **Access Token**
 token expired, we send another request to our `/refresh-token` endpoint, here we
 verify the **Refresh Token** and send another **Access Token**.
 
@@ -406,14 +407,14 @@ is, every time we create a new **Access Token** we will also create new
 
 ## Going extra mile
 
-Now, if you check `Request Headers` for any request you will fine we are sending
-our **Refresh Token** named `rt` cookie with every request.
+Now, if you check `Request Headers` for any request you will find, we are
+sending our **Refresh Token** named `rt` cookie with every request.
 
 ![image of request header containing refresh token of handling your JWT more securely in a single page app's article](../images/reqeust-header-containing-refresh-token.png 'request header containing refresh token')
 
-But we actually don't need our **Refresh Token** passing with every API request,
-we can limit this to only `/refresh-token` endpoint by including `path` in our
-`cookie` options.
+But we don't need our **Refresh Token** passing with every API request, we can
+limit this to only `/refresh-token` endpoint by including `path` in our `cookie`
+options.
 
 ```javascript{4}
 res.cookie('rt', refreshToken, {
