@@ -89,11 +89,11 @@ module.exports = {
     themes: [
       {
         dark: {
-          primary: '#57AA6F',
-          'primary-focus': '#4b9460',
+          primary: '#39e58c',
+          'primary-focus': '#51eba0',
           'primary-content': '#fffffe',
           secondary: '#263648',
-          'secondary-focus': '#1a2532',
+          'secondary-focus': '#32475e',
           'secondary-content': '#fffffe',
           accent: '#2cb67d',
           'accent-focus': '#259b6a',

@@ -20,7 +20,7 @@ export default function Header() {
             ))}
           </nav>
         </div>
-        <a href="" className="btn btn-primary btn-sm">
+        <a href="/#contact" className="btn btn-primary btn-sm">
           contact me
         </a>
       </div>

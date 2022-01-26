@@ -10,7 +10,7 @@ interface BlogPageProps {
 }
 
 export default function BlogPage({ data }: BlogPageProps) {
-  const { edges } = data.allMarkdownRemark;
+  const { featuredPosts, posts } = data;
 
   return (
     <Layout>
@@ -18,7 +18,7 @@ export default function BlogPage({ data }: BlogPageProps) {
       <div className="container mt-10">
         <h2 className="mb-3 section-heading">Featured Article</h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          {edges.map((edge: PostEdge) => (
+          {featuredPosts.edges.map((edge: PostEdge) => (
             <Blog key={edge.node.id} post={edge.node} />
           ))}
         </div>
@@ -35,7 +35,7 @@ export default function BlogPage({ data }: BlogPageProps) {
           ))}
         </div>
         <div className="grid sm:grid-cols-3 gap-x-6 gap-y-8">
-          {edges.map((edge: PostEdge) => (
+          {posts.edges.map((edge: PostEdge) => (
             <Blog key={edge.node.id} post={edge.node} variant="small" />
           ))}
         </div>
@@ -46,8 +46,38 @@ export default function BlogPage({ data }: BlogPageProps) {
 
 export const pageQuery = graphql`
   query BlogQuery {
-    allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/posts/" } }
+    featuredPosts: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "/posts/" }
+        frontmatter: { isFeatured: { eq: true } }
+      }
+      sort: { order: DESC, fields: [frontmatter___createdAt] }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            createdAt(formatString: "MMMM DD, YYYY")
+            path
+            topics
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+          timeToRead
+        }
+      }
+    }
+    posts: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "/posts/" }
+        frontmatter: { isFeatured: { eq: false } }
+      }
       sort: { order: DESC, fields: [frontmatter___createdAt] }
     ) {
       edges {

@@ -18,7 +18,7 @@ h6 {
 @tailwind components;
 
 .btn {
-  @apply h-auto px-4 py-[20px] rounded-full sm:py-3 sm:px-5;
+  @apply h-auto px-4 py-2 rounded-full sm:py-[20px] sm:px-5 text-base-100;
 }
 
 .btn-sm {

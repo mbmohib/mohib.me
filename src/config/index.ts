@@ -29,13 +29,16 @@ export const categories = [
     label: 'React',
   },
   {
-    label: 'DevOps',
-  },
-  {
     label: 'Gatsby',
   },
   {
+    label: 'Testing',
+  },
+  {
     label: 'Authentication',
+  },
+  {
+    label: 'NodeJS',
   },
   {
     label: 'UI/UX',
