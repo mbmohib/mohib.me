@@ -67,3 +67,8 @@ export const profileLinks = [
     icon: TwitterIcon,
   },
 ];
+
+export const ENV = process.env.NODE_ENV as
+  | 'production'
+  | 'development'
+  | undefined;

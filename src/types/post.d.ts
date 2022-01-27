@@ -7,6 +7,7 @@ export interface Post {
     featuredImage: any;
     isFeatured: boolean;
     topics: string[];
+    status: 'draft' | 'published';
   };
   id: string;
   html: string;

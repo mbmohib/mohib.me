@@ -3,8 +3,9 @@ path: 'handle-jwt-more-securely-in-a-single-page-app'
 createdAt: '2022-01-21'
 updatedAt: '2022-01-26'
 title: 'Handle JWT more securely in a single page app'
-featuredImage: ../images/security.jpg
+featuredImage: ../images/handle-jwt-more-securely-in-a-single-page-app.jpeg
 isFeatured: true
+status: 'published'
 topics: ['Authentication', 'React']
 ---
 

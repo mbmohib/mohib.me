@@ -42,7 +42,7 @@ export default function BlogTemplate({ data }: BlogTemplateProps) {
 
         <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-9">
-            <div className="lg:h-[400px] xl:h-[500px] rounded-md overflow-hidden">
+            <div className="rounded-md">
               <Image className="rounded-md" fluid={featuredImgFluid} />
             </div>
             <article

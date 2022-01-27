@@ -2,11 +2,15 @@ import { Link, graphql } from 'gatsby';
 
 import { Layout, Blog } from '../components';
 import SEO from '../components/seo';
-import { categories } from '../config';
+import { categories, ENV } from '../config';
 import { PostEdge } from '../types';
+import { filterDraft } from '../utils';
 
 interface BlogPageProps {
-  data: any;
+  data: {
+    featuredPosts: { edges: PostEdge[] };
+    posts: { edges: PostEdge[] };
+  };
 }
 
 export default function BlogPage({ data }: BlogPageProps) {
@@ -14,13 +18,15 @@ export default function BlogPage({ data }: BlogPageProps) {
 
   return (
     <Layout>
-      <SEO title="Blogs" />
+      <SEO title="Blog" />
       <div className="container mt-10">
         <h2 className="mb-3 section-heading">Featured Article</h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          {featuredPosts.edges.map((edge: PostEdge) => (
-            <Blog key={edge.node.id} post={edge.node} />
-          ))}
+          {featuredPosts.edges
+            .filter(edge => filterDraft(edge))
+            .map(edge => (
+              <Blog key={edge.node.id} post={edge.node} />
+            ))}
         </div>
         <div className="mt-10 mb-7">
           <h2 className="mb-3 section-heading">Read blog by topic</h2>
@@ -35,9 +41,11 @@ export default function BlogPage({ data }: BlogPageProps) {
           ))}
         </div>
         <div className="grid sm:grid-cols-3 gap-x-6 gap-y-8">
-          {posts.edges.map((edge: PostEdge) => (
-            <Blog key={edge.node.id} post={edge.node} variant="small" />
-          ))}
+          {posts.edges
+            .filter(edge => filterDraft(edge))
+            .map(edge => (
+              <Blog key={edge.node.id} post={edge.node} variant="small" />
+            ))}
         </div>
       </div>
     </Layout>
@@ -49,7 +57,7 @@ export const pageQuery = graphql`
     featuredPosts: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/posts/" }
-        frontmatter: { isFeatured: { eq: true } }
+        frontmatter: { isFeatured: { eq: true }, status: { eq: "published" } }
       }
       sort: { order: DESC, fields: [frontmatter___createdAt] }
     ) {
@@ -61,6 +69,7 @@ export const pageQuery = graphql`
             createdAt(formatString: "MMMM DD, YYYY")
             path
             topics
+            status
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {
@@ -88,6 +97,7 @@ export const pageQuery = graphql`
             createdAt(formatString: "MMMM DD, YYYY")
             path
             topics
+            status
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {

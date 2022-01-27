@@ -4,9 +4,13 @@ import { Layout, Blog, Project, ProfileLink } from '../components';
 import { SEO, HeroImage } from '../components';
 import { profileLinks } from '../config';
 import { PostEdge, ProjectEdge } from '../types';
+import { filterDraft } from '../utils';
 
 interface IndexProps {
-  data: any;
+  data: {
+    posts: { edges: PostEdge[] };
+    projects: { edges: ProjectEdge[] };
+  };
 }
 
 export default function Index({ data }: IndexProps) {
@@ -53,9 +57,11 @@ export default function Index({ data }: IndexProps) {
       <section id="blog" className="my-10 rounded-md sm:my-12">
         <div className="container">
           <div className="grid gap-4 sm:grid-cols-2">
-            {posts.edges.map((edge: PostEdge) => (
-              <Blog key={edge.node.id} post={edge.node} />
-            ))}
+            {posts.edges
+              .filter(edge => filterDraft(edge))
+              .map(edge => (
+                <Blog key={edge.node.id} post={edge.node} />
+              ))}
           </div>
           <div className="mt-8 text-center">
             <Link to="/blog" className="btn btn-primary">
@@ -69,7 +75,7 @@ export default function Index({ data }: IndexProps) {
         <div className="container">
           <h2 className="mb-3 section-heading">My Lab</h2>
           <div className="grid gap-4 sm:grid-cols-3">
-            {projects.edges.map((edge: ProjectEdge) => (
+            {projects.edges.map(edge => (
               <Project project={edge.node} key={edge.node.id} />
             ))}
           </div>
@@ -122,7 +128,10 @@ export default function Index({ data }: IndexProps) {
 export const pageQuery = graphql`
   query IndexQuery {
     posts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/posts/" } }
+      filter: {
+        fileAbsolutePath: { regex: "/posts/" }
+        frontmatter: { isFeatured: { eq: true } }
+      }
       sort: { order: DESC, fields: [frontmatter___createdAt] }
     ) {
       edges {
@@ -133,6 +142,7 @@ export const pageQuery = graphql`
             createdAt(formatString: "MMMM DD, YYYY")
             path
             topics
+            status
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 600, quality: 90) {
