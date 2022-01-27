@@ -29,12 +29,16 @@ export default function Index({ data }: IndexProps) {
                 <span className="font-semibold text-primary">Mohib</span>
               </h1>
               <p className="mt-1 text-md">
-                I'm a software engineer in Bangladesh. My favorite language is
-                <span className="font-bold"> JavaScript</span>. I love working
-                with frontend staff like{' '}
-                <span className="font-bold">React</span>, CSS, Animation. I've
-                also some knowledge with the backend technologies like{' '}
-                <span className="font-bold">NodeJS</span>, MongoDB
+                I'm a software engineer in Bangladesh working with{' '}
+                <span className="font-bold"> JavaScript </span>
+                for about 4+ years & have 3+ years of working experience with
+                <span className="font-bold"> React</span>. I also have some
+                working knowledge with{' '}
+                <span className="font-bold">NodeJS, MongoDB, AWS.</span> I love
+                to work with front-end technologies especially{' '}
+                <span className="font-bold"> React</span>. I'm also curious
+                about UX. Besides this, I like traveling and occasionally write
+                blogs.
               </p>
               <div className="mt-3">
                 <Link to="/blog" className="mb-2 mr-2 sm:mb-0 btn btn-primary">
@@ -91,6 +95,7 @@ export default function Index({ data }: IndexProps) {
                   <span className="label-text">Your Email</span>
                 </label>
                 <input
+                  disabled
                   type="text"
                   placeholder="me@example.com"
                   className="rounded-lg input input-bordered focus:input-primary"
@@ -101,11 +106,13 @@ export default function Index({ data }: IndexProps) {
                   <span className="label-text">Your Message</span>
                 </label>
                 <textarea
+                  disabled
                   className="h-12 rounded-lg textarea textarea-bordered focus:textarea-primary"
                   placeholder="Write your message"
                 ></textarea>
               </div>
               <button
+                disabled
                 type="submit"
                 className="px-8 mt-4 btn btn-primary btn-sm"
               >
