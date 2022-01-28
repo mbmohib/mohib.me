@@ -3,7 +3,7 @@ path: 'get-your-redux-devtool-in-cypress'
 createdAt: '2022-01-27'
 updatedAt: '2022-01-27'
 title: 'Get your Redux devtool in Cypress'
-featuredImage: /images/get-your-redux-devtool-in-cypress.jpeg
+featuredImage: ../images/get-your-redux-devtool-in-cypress.jpeg
 isFeatured: false
 status: 'draft'
 topics: ['React', 'Testing']
