@@ -3,8 +3,7 @@ path: 'improve-ux-by-logging-out-from-other-tabs'
 createdAt: '2022-01-18'
 updatedAt: '2022-01-18'
 title: 'Improve UX by logging out from other tabs'
-# featuredImage: ../images/improve-ux-by-logging-out-from-other-tabs.jpeg
-featuredImage: ../images/improve-ux-by-logging-out-from-other-tabs.jpeg
+featuredImage: /images/improve-ux-by-logging-out-from-other-tabs.jpeg
 isFeatured: true
 status: 'published'
 topics: ['UX', 'React']
