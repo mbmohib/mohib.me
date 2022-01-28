@@ -5,7 +5,7 @@ updatedAt: '2022-01-27'
 title: 'Get your Redux devtool in Cypress'
 featuredImage: ../images/get-your-redux-devtool-in-cypress.jpeg
 isFeatured: false
-status: 'draft'
+status: 'published'
 topics: ['React', 'Testing']
 ---
 

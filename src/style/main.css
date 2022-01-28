@@ -27,6 +27,9 @@ h6 {
 .btn-xs {
   @apply px-2 py-1;
 }
+.btn-outline {
+  @apply hover:text-base-100;
+}
 
 .section-heading {
   @apply text-2xl sm:text-3xl font-title text-base-content;
