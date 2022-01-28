@@ -13,6 +13,7 @@ h5,
 h6 {
   @apply text-primary-content;
   line-height: 1.5;
+  scroll-margin-top: 16px;
 }
 
 @tailwind components;
