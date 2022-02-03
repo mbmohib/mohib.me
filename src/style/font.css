@@ -3,7 +3,7 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/montserrat/montserrat-v21-latin-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
     url('/fonts/montserrat/montserrat-v21-latin-regular.eot?#iefix')
@@ -24,7 +24,7 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/montserrat/montserrat-v21-latin-500.eot'); /* IE9 Compat Modes */
   src: local(''),
     url('/fonts/montserrat/montserrat-v21-latin-500.eot?#iefix')
@@ -44,7 +44,7 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/montserrat/montserrat-v21-latin-600.eot'); /* IE9 Compat Modes */
   src: local(''),
     url('/fonts/montserrat/montserrat-v21-latin-600.eot?#iefix')
@@ -65,7 +65,7 @@
   font-family: 'Oxygen';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/oxygen/oxygen-v10-latin-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
     url('/fonts/oxygen/oxygen-v10-latin-regular.eot?#iefix')
@@ -84,7 +84,7 @@
   font-family: 'Oxygen';
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/oxygen/'); /* IE9 Compat Modes */
   src: local(''), url('/fonts/oxygen/?#iefix') format('embedded-opentype'),
     /* IE6-IE8 */ url('/fonts/oxygen/oxygen-v10-latin-700.woff2')
