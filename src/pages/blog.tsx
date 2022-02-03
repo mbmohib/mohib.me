@@ -2,7 +2,7 @@ import { Link, graphql } from 'gatsby';
 
 import { Layout, Blog } from '../components';
 import SEO from '../components/seo';
-import { categories, ENV } from '../config';
+import { categories } from '../config';
 import { PostEdge } from '../types';
 import { filterDraft } from '../utils';
 
@@ -72,9 +72,7 @@ export const pageQuery = graphql`
             status
             featuredImage {
               childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: CONSTRAINED)
               }
             }
           }
@@ -100,9 +98,7 @@ export const pageQuery = graphql`
             status
             featuredImage {
               childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: CONSTRAINED)
               }
             }
           }

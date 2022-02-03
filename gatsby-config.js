@@ -3,6 +3,7 @@ module.exports = {
     title: `Mohammad Mohibbullah`,
     description: `I'm a software engineer in Bangladesh. My favorite language is JavaScript. I love working with frontend staff like React, CSS, Animation. I've also some knowledge with the backend technologies like NodeJS, MongoDB`,
     author: `Mohib`,
+    siteUrl: `https://mohib.me`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -66,16 +67,17 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {
+          formats: [`auto`, `webp`],
           quality: 80,
         },
       },
     },
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -120,5 +122,6 @@ module.exports = {
         ignore: ['prismjs/', '/src/style/prism.css'],
       },
     },
+    `gatsby-plugin-advanced-sitemap`,
   ],
 };

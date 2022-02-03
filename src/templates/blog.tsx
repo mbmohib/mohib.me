@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Image from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { Layout, SEO, PostMeta } from '../components';
 
 import { Post } from '../types';
@@ -13,7 +13,8 @@ interface BlogTemplateProps {
 
 export default function BlogTemplate({ data }: BlogTemplateProps) {
   const { markdownRemark: post } = data;
-  const featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid;
+  const featuredImgFluid =
+    post.frontmatter.featuredImage.childImageSharp.gatsbyImageData;
 
   return (
     <Layout>
@@ -43,7 +44,11 @@ export default function BlogTemplate({ data }: BlogTemplateProps) {
         <div className="grid sm:grid-cols-12 sm:gap-x-6">
           <div className="sm:col-span-9">
             <div className="rounded-md">
-              <Image className="rounded-md" fluid={featuredImgFluid} />
+              <GatsbyImage
+                className="rounded-md"
+                image={featuredImgFluid}
+                alt={`image of ${post.frontmatter.title}`}
+              />
             </div>
             <article
               className="mx-auto mt-8 prose article lg:prose-lg prose-figcaption:text-center prose-figcaption:italic prose-img:rounded"
@@ -73,13 +78,11 @@ export const pageQuery = graphql`
         path
         title
         topics
-        featuredImage {
-          childImageSharp {
-            fluid(maxWidth: 1200, quality: 100) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
+        # featuredImage {
+        #   childImageSharp {
+        #     gatsbyImageData(layout: CONSTRAINED)
+        #   }
+        # }
       }
       timeToRead
       tableOfContents

@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import Image from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { Post } from '../types';
 import { PostMeta } from '../components';
 
@@ -9,14 +9,15 @@ interface BlogProps {
 }
 
 export default function Blog({ variant = 'medium', post }: BlogProps) {
-  const featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid;
+  const featuredImgFluid =
+    post.frontmatter.featuredImage.childImageSharp.gatsbyImageData;
 
   return (
     <div>
       <Link className="block" to={`/blog/${post.frontmatter.path}/`}>
-        <Image
+        <GatsbyImage
           className="rounded-md h-[300px] lg:h-[400px]"
-          fluid={featuredImgFluid}
+          image={featuredImgFluid}
           alt={post.frontmatter.title}
         />
       </Link>
