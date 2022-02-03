@@ -1,4 +1,3 @@
-import React from 'react';
 import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { Layout, SEO, PostMeta } from '../components';
@@ -78,11 +77,11 @@ export const pageQuery = graphql`
         path
         title
         topics
-        # featuredImage {
-        #   childImageSharp {
-        #     gatsbyImageData(layout: CONSTRAINED)
-        #   }
-        # }
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(layout: CONSTRAINED)
+          }
+        }
       }
       timeToRead
       tableOfContents
